@@ -1,0 +1,91 @@
+{
+  "project_info": {
+    "project_number": "182476836410",
+    "firebase_url": "https://modastore-bfc8a-default-rtdb.firebaseio.com",
+    "project_id": "modastore-bfc8a",
+    "storage_bucket": "modastore-bfc8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182476836410:android:6e28a158262eacffdf2f03",
+        "android_client_info": {
+          "package_name": "com.example.moda_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182476836410-92fq6fcd9jk7caj5vhvr5dpflolep5al.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moda_store",
+            "certificate_hash": "368db136ce5160df6a230c2b93062fae9f5f00eb"
+          }
+        },
+        {
+          "client_id": "182476836410-l81mebts10n6nd6ag8eqmvu6idpidnkq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHG9j4Uz9nq3Ys8U5jrtyM-Pwem8m6Nf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182476836410-ce5r8q4oaci9ud5tc4c08u65018gtg5l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "182476836410-v0na43tr25tbp6819vqh778imbukkhcf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.modaStore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182476836410:android:a87dab87e21e71afdf2f03",
+        "android_client_info": {
+          "package_name": "com.youce.m_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182476836410-l81mebts10n6nd6ag8eqmvu6idpidnkq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHG9j4Uz9nq3Ys8U5jrtyM-Pwem8m6Nf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182476836410-ce5r8q4oaci9ud5tc4c08u65018gtg5l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "182476836410-v0na43tr25tbp6819vqh778imbukkhcf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.modaStore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

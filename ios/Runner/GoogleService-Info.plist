@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>182476836410-4uusamh06ft7aae6po6l5j9comvf4e3b.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.182476836410-4uusamh06ft7aae6po6l5j9comvf4e3b</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>182476836410-92fq6fcd9jk7caj5vhvr5dpflolep5al.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB6ESMnWUTuvZjaGSh0Js80ugcTnvgSIt4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>182476836410</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.youce.mStore</string>
+	<key>PROJECT_ID</key>
+	<string>modastore-bfc8a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>modastore-bfc8a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:182476836410:ios:35b69eeed3aaa9eddf2f03</string>
+	<key>DATABASE_URL</key>
+	<string>https://modastore-bfc8a-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
