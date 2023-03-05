@@ -7,6 +7,7 @@ import 'package:m_store/featured/products/data/presentation/views/popular_produc
 import 'package:m_store/featured/products/data/presentation/views/widgets/recommended_products_list.dart';
 import 'package:m_store/widgets/main_screen.dart';
 
+import '../featured/cart/presentation/views/cart_screen.dart';
 import '../featured/products/data/models/product_model.dart';
 import '../featured/products/data/presentation/views/product_details.dart';
 import '../featured/auth/presentation/views/signup.dart';
@@ -22,6 +23,7 @@ class AppRoutes{
   static const String popular = '/popular';
   static const String recommended = '/recommended';
   static const String newest = '/newest';
+  static const String cart = '/cart';
   static Route<dynamic> generateRoutes (RouteSettings routeSettings){
     final arg = routeSettings.arguments;
     switch(routeSettings.name){
@@ -37,6 +39,8 @@ class AppRoutes{
         return MaterialPageRoute(builder: (c_)=>const RecommendedList());
         case splash:
         return MaterialPageRoute(builder: (_)=> const SplashScreen());
+        case cart:
+        return MaterialPageRoute(builder: (_)=> const CartScreen());
         case update:
         return _errorRoute();
       case details:

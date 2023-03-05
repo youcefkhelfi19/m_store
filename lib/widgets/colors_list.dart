@@ -3,8 +3,9 @@ import 'package:m_store/config/app_colors.dart';
 import 'package:m_store/widgets/color_card.dart';
 
 class ColorsList extends StatefulWidget {
-  const ColorsList({Key? key, required this.colors}) : super(key: key);
+  const ColorsList({Key? key, required this.colors, required this.onTap}) : super(key: key);
   final List<int> colors;
+  final Function(int) onTap;
   @override
   State<ColorsList> createState() => _ColorsListState();
 }
@@ -26,6 +27,7 @@ class _ColorsListState extends State<ColorsList> {
             setState(() {
               currentIndex = index;
             });
+            widget.onTap(widget.colors[index]);
           },
           child: Container(
             height: 30,

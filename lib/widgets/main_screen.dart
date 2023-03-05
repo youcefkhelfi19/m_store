@@ -3,6 +3,8 @@ import 'package:m_store/config/app_colors.dart';
 import 'package:m_store/config/constans.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../config/app_routes.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -28,6 +30,7 @@ class _MainScreenState extends State<MainScreen> {
           elevation: 0.0,
           backgroundColor: AppColors.mainColor,
           actions: [IconButton(onPressed: (){
+            Navigator.popAndPushNamed(context, AppRoutes.cart);
           }, icon: const Icon(Icons.shopping_cart_outlined))],
         ),
         body: navBarList[_index],

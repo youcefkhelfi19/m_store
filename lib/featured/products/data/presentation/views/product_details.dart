@@ -6,46 +6,49 @@ import 'package:ionicons/ionicons.dart';
 import 'package:m_store/config/text_styles.dart';
 
 import '../../../../../config/app_colors.dart';
+import '../../../../cart/presentation/views/widgets/add_to_cart_btn.dart';
+import '../../../../cart/presentation/views/widgets/quantity_row.dart';
 import '../../models/product_model.dart';
 import '../../../../../widgets/colors_list.dart';
 
-class ProductDetails extends StatelessWidget {
+class ProductDetails extends StatefulWidget {
   const ProductDetails({Key? key, required  this.product})
       : super(key: key);
   final Product product;
+
+  @override
+  State<ProductDetails> createState() => _ProductDetailsState();
+}
+
+class _ProductDetailsState extends State<ProductDetails> {
+  int quantity = 1;
+  late int selectedColor ;
+  late String selectedSize;
+  @override
+  void initState() {
+     selectedColor = widget.product.colors[0];
+     selectedSize = widget.product.sizes[0];
+  }
   @override
   Widget build(BuildContext context) {
+    print('rebuilding');
     return Scaffold(
       bottomSheet: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MaterialButton(
-              height: 50,
-              minWidth: 150,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              color: AppColors.mainColor,
-              onPressed: (){},
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Add to Cart',style: TextStyles.style20.copyWith(color: Colors.white,fontSize: 18),),
-                  const SizedBox(width: 20,),
-                  const Icon(Ionicons.bag_add_outline,color: Colors.white,)
-                ],
-              ),
+            IconButton(onPressed: (){
+
+            }, icon:const Icon(Ionicons.heart_outline,size: 40,)),
+            AddToCartBtn(product: widget.product, selectedColor: selectedColor, selectedSize: selectedSize, quantity: quantity,
             ),
-            IconButton(onPressed: (){}, icon: const Icon(Ionicons.heart_outline,size: 35,))
           ],
         ),
       ),
       appBar: AppBar(
         centerTitle: true,
-        title:  Text(product.title),
+        title:  Text(widget.product.title),
         elevation: 0.0,
         backgroundColor: AppColors.mainColor,
         actions: [
@@ -62,7 +65,7 @@ class ProductDetails extends StatelessWidget {
               ),
               child: Swiper(
                 itemBuilder: (context, index) {
-                  final image = product.images![index];
+                  final image = widget.product.images![index];
                   return Padding(
                     padding: const EdgeInsets.only(left: 3,right: 3),
                     child: ClipRRect(
@@ -76,7 +79,7 @@ class ProductDetails extends StatelessWidget {
                 },
                 indicatorLayout: PageIndicatorLayout.SCALE,
                 autoplay: false,
-                itemCount: product.images!.length,
+                itemCount: widget.product.images!.length,
                 pagination: const SwiperPagination(),
                 control:  const SwiperControl(
                     color: Colors.transparent,disableColor: Colors.transparent
@@ -90,7 +93,7 @@ class ProductDetails extends StatelessWidget {
               children:  [
                 const Text('Price:',style: TextStyles.style20,),
 
-                Text('${product.price}DZD',style:  TextStyles.style20,),
+                Text('${widget.product.price}DZD',style:  TextStyles.style20,),
 
               ],),
           ),
@@ -101,7 +104,7 @@ class ProductDetails extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: ExpandableText(
-              product.description,
+              widget.product.description,
               style: TextStyle(fontSize: 16,color: Colors.grey.shade700),
               expandText: 'show more',
               collapseText: 'show less',
@@ -129,14 +132,15 @@ class ProductDetails extends StatelessWidget {
                       unSelectedColor: Colors.white,
                       selectedBorderColor: AppColors.mainColor,
                       unSelectedBorderColor: AppColors.mainColor,
-                      defaultSelected: product.sizes[0],
-                      buttonLables: product.sizes,
-                      buttonValues: product.sizes,
+                      defaultSelected: widget.product.sizes[0],
+                      buttonLables: widget.product.sizes,
+                      buttonValues: widget.product.sizes,
                       buttonTextStyle: const ButtonTextStyle(
                           selectedColor: Colors.white,
                           unSelectedColor: Colors.black,
                           textStyle: TextStyle(fontSize: 16)),
                       radioButtonValue: (value) {
+                        selectedSize = value;
                       },
                       selectedColor: AppColors.mainColor,
                     ),
@@ -145,7 +149,14 @@ class ProductDetails extends StatelessWidget {
               ],
             ),
           ),
-          ColorsList(colors: product.colors,)
+          ColorsList(
+            colors: widget.product.colors,
+            onTap: (value){
+              selectedColor = value;
+            },
+          )
+
+
         ],
       ),
     );

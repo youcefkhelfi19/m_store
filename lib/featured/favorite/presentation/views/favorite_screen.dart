@@ -8,7 +8,6 @@ class Favorite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('FFFF');
     return Scaffold(
       body: ListView.builder(
           itemCount: 10,
