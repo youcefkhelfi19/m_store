@@ -7,9 +7,10 @@ import '../../../../../config/text_styles.dart';
 
 class CartCard extends StatelessWidget {
   const CartCard({
-    super.key, required this.productCart,
+    super.key, required this.productCart, required this.productCartId,
   });
-   final ProductCart productCart;
+   final Cart productCart;
+   final String productCartId;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -24,7 +25,7 @@ class CartCard extends StatelessWidget {
                 padding: const EdgeInsets.all(5.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset('assets/images/logo.png',height: 100,width: 100,),
+                  child: Image.network(productCart.image ,height: 100,width: 100,),
                 ),
               ),
               Column(
@@ -54,10 +55,14 @@ class CartCard extends StatelessWidget {
             ],
           ),
         ),
-         const Positioned(
+         Positioned(
             top: 5,
             right: 5,
-            child: QuantityRow()),
+            child: QuantityRow(
+
+              id: productCartId,
+
+            )),
         Positioned(
             bottom: 10,
             right: 10,

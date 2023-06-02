@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m_store/featured/auth/data/models/admin.dart';
+import 'package:m_store/featured/auth/data/models/user.dart';
 
 import '../../../../config/app_colors.dart';
 import '../../../../config/app_routes.dart';
@@ -9,6 +9,7 @@ import '../../../../config/text_styles.dart';
 import '../../../../widgets/alerts.dart';
 import 'widgets/custom_global_btn.dart';
 import 'widgets/custom_input_field.dart';
+import 'widgets/password_form_field.dart';
 import 'widgets/screen_switch.dart';
 import '../view_models/auth_cubit/auth_cubit.dart';
 
@@ -115,7 +116,7 @@ class _SignupState extends State<Signup> {
                       isNumber: true,
                     ),
 
-                    CustomInputField(
+                    PasswordField(
                       validator: (value){
                         if(value!.length<4){
                           return 'password must be more than 4 chr';
@@ -133,10 +134,11 @@ class _SignupState extends State<Signup> {
                     GlobalBtn(
                       title: 'sign_up',
                       onTap: ()  async{
-                        Admin admin = Admin(username: usernameTextController.text,
+                        UserModel admin = UserModel(username: usernameTextController.text,
                             email: emailTextController.text.trim(), phone: phoneTextController.text.trim(),
                             address: '',
-                            image: ''
+                            image: '',
+                            favorites: []
                         );
                         await BlocProvider.of<AuthCubit>(context).
                         signup(admin: admin, password: passwordTextController.text.trim());

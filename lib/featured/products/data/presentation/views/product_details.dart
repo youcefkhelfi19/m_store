@@ -7,7 +7,6 @@ import 'package:m_store/config/text_styles.dart';
 
 import '../../../../../config/app_colors.dart';
 import '../../../../cart/presentation/views/widgets/add_to_cart_btn.dart';
-import '../../../../cart/presentation/views/widgets/quantity_row.dart';
 import '../../models/product_model.dart';
 import '../../../../../widgets/colors_list.dart';
 
@@ -21,17 +20,15 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  int quantity = 1;
-  late int selectedColor ;
   late String selectedSize;
+  int index = 0;
   @override
   void initState() {
-     selectedColor = widget.product.colors[0];
+    super.initState();
      selectedSize = widget.product.sizes[0];
   }
   @override
   Widget build(BuildContext context) {
-    print('rebuilding');
     return Scaffold(
       bottomSheet: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
@@ -41,7 +38,10 @@ class _ProductDetailsState extends State<ProductDetails> {
             IconButton(onPressed: (){
 
             }, icon:const Icon(Ionicons.heart_outline,size: 40,)),
-            AddToCartBtn(product: widget.product, selectedColor: selectedColor, selectedSize: selectedSize, quantity: quantity,
+            AddToCartBtn(
+              product: widget.product,
+              index: index,
+              selectedSize: selectedSize,
             ),
           ],
         ),
@@ -64,8 +64,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                   borderRadius: BorderRadius.circular(10)
               ),
               child: Swiper(
-                itemBuilder: (context, index) {
-                  final image = widget.product.images![index];
+                itemBuilder: (context, i) {
+
+                  final image = widget.product.images![i];
                   return Padding(
                     padding: const EdgeInsets.only(left: 3,right: 3),
                     child: ClipRRect(
@@ -118,33 +119,37 @@ class _ProductDetailsState extends State<ProductDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('Sizes:',style:TextStyles.style20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CustomRadioButton(
-                      elevation: 0,
-                      padding: 0,
-                      absoluteZeroSpacing: false,
-                      shapeRadius: 10,
-                      enableShape: true,
-                      width: 60,
-                      height: 40,
-                      unSelectedColor: Colors.white,
-                      selectedBorderColor: AppColors.mainColor,
-                      unSelectedBorderColor: AppColors.mainColor,
-                      defaultSelected: widget.product.sizes[0],
-                      buttonLables: widget.product.sizes,
-                      buttonValues: widget.product.sizes,
-                      buttonTextStyle: const ButtonTextStyle(
-                          selectedColor: Colors.white,
-                          unSelectedColor: Colors.black,
-                          textStyle: TextStyle(fontSize: 16)),
-                      radioButtonValue: (value) {
-                        selectedSize = value;
-                      },
-                      selectedColor: AppColors.mainColor,
-                    ),
-                  ],
+                SizedBox(
+                  height: 40,
+                  child: ListView(
+                    children: [
+                      CustomRadioButton(
+                        elevation: 0,
+                        padding: 0,
+                        absoluteZeroSpacing: false,
+                        shapeRadius: 10,
+                        enableShape: true,
+                        width: 60,
+                        height: 40,
+                        unSelectedColor: Colors.white,
+                        selectedBorderColor: AppColors.mainColor,
+                        unSelectedBorderColor: AppColors.mainColor,
+                        defaultSelected: widget.product.sizes[0],
+                        buttonLables: widget.product.sizes,
+                        buttonValues: widget.product.sizes,
+                        buttonTextStyle: const ButtonTextStyle(
+                            selectedColor: Colors.white,
+                            unSelectedColor: Colors.black,
+                            textStyle: TextStyle(fontSize: 16)),
+                        radioButtonValue: (value) {
+                          setState(() {
+                            selectedSize = value;
+                          });
+                        },
+                        selectedColor: AppColors.mainColor,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -152,7 +157,9 @@ class _ProductDetailsState extends State<ProductDetails> {
           ColorsList(
             colors: widget.product.colors,
             onTap: (value){
-              selectedColor = value;
+              setState(() {
+                index = widget.product.colors.indexOf(value);
+              });
             },
           )
 

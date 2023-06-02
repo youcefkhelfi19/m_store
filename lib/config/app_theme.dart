@@ -5,7 +5,7 @@ import 'app_colors.dart';
 
 
 ThemeData englishTheme = ThemeData(
-    fontFamily: 'PTSans-Regular',
+    fontFamily: 'bb',
     appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.mainColor,
         elevation: 0.0,

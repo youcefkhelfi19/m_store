@@ -9,6 +9,7 @@ import '../../../../config/app_colors.dart';
 import '../../../../widgets/alerts.dart';
 import 'widgets/custom_global_btn.dart';
 import 'widgets/custom_input_field.dart';
+import 'widgets/password_form_field.dart';
 import 'widgets/screen_switch.dart';
 import 'widgets/social_btn.dart';
 
@@ -21,7 +22,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController phoneTextController = TextEditingController();
+  TextEditingController emailTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
 
   @override
@@ -72,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                        ),
                        const SizedBox(height: 10,),
 
-                       CustomInputField(
+                       PasswordField(
                          validator: (value){
                            if(value!.length<4){
                              return 'password must be more than 4 chr';

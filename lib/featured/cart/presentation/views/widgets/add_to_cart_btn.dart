@@ -9,11 +9,10 @@ import '../../../../../config/app_colors.dart';
 import '../../../../../config/text_styles.dart';
 
 class AddToCartBtn extends StatelessWidget {
-  const AddToCartBtn({Key? key,required this.product, required this.selectedColor, required this.selectedSize, required this.quantity}) : super(key: key);
+  const AddToCartBtn({Key? key,required this.product, required this.index, required this.selectedSize, }) : super(key: key);
  final Product product ;
- final int selectedColor;
+ final int index;
  final String selectedSize;
- final int quantity;
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartCubit, CartState>(
@@ -27,8 +26,9 @@ class AddToCartBtn extends StatelessWidget {
       ),
       color: AppColors.mainColor,
       onPressed: (){
-        ProductCart productCart = ProductCart(
-             title: product.title, quantity: quantity, description: product.description, price: product.price, images: product.images!.cast<String>(), color: selectedColor, size: selectedSize, dateTime: DateTime.now().toString(), productId: product.productId.toString());
+        Cart productCart = Cart(
+             title: product.title, price: product.price, image: product.images![index], color: product.colors[index], size: selectedSize,
+            dateTime: DateTime.now().toString(), productId: product.productId.toString());
         context.read<CartCubit>().addProductToCart(productCart);
       },
       child: Row(

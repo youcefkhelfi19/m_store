@@ -4,7 +4,7 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../../../../config/app_colors.dart';
 import '../../../../../config/text_styles.dart';
-import '../../view_models/admin_cubit/admin_cubit.dart';
+import '../../view_models/admin_cubit/user_cubit.dart';
 import 'custom_input_field.dart';
 
 updateFieldAlert(
@@ -57,7 +57,7 @@ updateFieldAlert(
                onPressed: () async{
                  print(fieldController.text);
                  if(fieldController.text.isNotEmpty){
-                    context.read<AdminCubit>().updateField(fieldValue: fieldController.text, field: fieldName);
+                    context.read<UserCubit>().updateField(fieldValue: fieldController.text, field: fieldName);
                     Navigator.pop(context);
 
                  }

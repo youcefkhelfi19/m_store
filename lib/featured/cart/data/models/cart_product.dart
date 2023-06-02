@@ -1,39 +1,40 @@
-class ProductCart {
+import 'dart:convert';
+
+import 'package:firebase_database/firebase_database.dart';
+
+class Cart {
   final String productId;
   final String title;
-  final String description;
   final double price;
-  final int quantity;
-  final List<String> images;
+  final String image;
   final String size;
   final int color;
   final String dateTime;
 
 
 
-  ProductCart({
+
+  Cart({
     required this.productId,
     required this.title,
-    required this.quantity,
-    required this.description,
     required this.price,
-    required this.images,
+    required this.image,
     required this.color,
     required this.size,
     required this.dateTime
   });
 
-  factory ProductCart.fromJson(Map<dynamic, dynamic> map) {
-    return ProductCart(
+  factory Cart.fromDataSnapshot(DataSnapshot dataSnapshot) {
+    String data = jsonEncode(dataSnapshot.value) ;
+    final map = jsonDecode(data);
+    return Cart(
       productId: map['id'],
       title: map['title'],
       dateTime: map['dateTime'],
-      description: map['description'],
-      quantity: map['quantity'],
       price: map['price'].toDouble(),
-      images: List<String>.from(map['images']),
+      image: map['image'],
       color: map['color'],
-      size: map['color'],
+      size: map['size'],
     );
   }
 
@@ -41,10 +42,8 @@ class ProductCart {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = productId;
     data['title'] = title;
-    data['description'] = description;
-    data['quantity'] = quantity;
     data['price'] = price;
-    data['images'] = images;
+    data['image'] = image;
     data['dateTime'] = dateTime;
     data['color'] = color;
     data['size'] = size;

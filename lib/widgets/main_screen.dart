@@ -26,11 +26,11 @@ class _MainScreenState extends State<MainScreen> {
        Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('SACA'),
+          title: const Text('MStore'),
           elevation: 0.0,
           backgroundColor: AppColors.mainColor,
           actions: [IconButton(onPressed: (){
-            Navigator.popAndPushNamed(context, AppRoutes.cart);
+            Navigator.pushNamed(context, AppRoutes.cart);
           }, icon: const Icon(Icons.shopping_cart_outlined))],
         ),
         body: navBarList[_index],

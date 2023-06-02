@@ -5,7 +5,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
-import 'package:m_store/featured/auth/data/models/admin.dart';
+import 'package:m_store/featured/auth/data/models/user.dart';
 
 import '../../../../../services/locator.dart';
 
@@ -29,40 +29,40 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       await auth.signInWithCredential(credential).then((value) {
-        Admin admin = Admin(username: value.user!.displayName!, email: value.user!.email!, phone: '', adminId: value.user!.uid,
+        UserModel admin = UserModel(username: value.user!.displayName!, email: value.user!.email!, phone: '', userId: value.user!.uid,
             address: '',
-            image: value.user!.photoURL.toString()
+            image: value.user!.photoURL.toString(), favorites: []
         );
-        uploadAdminData(admin);
+        getIt.get<GetStorage>().read('id') == null ? uploadAdminData(admin):null;
       });
     }catch(e){
       emit(AuthFailed(errMsg: e.toString()));
     }
   }
-  Future uploadAdminData(Admin admin) async {
+  Future uploadAdminData(UserModel admin) async {
     emit(const AuthLoading());
     try {
       await firebaseFirestore
-          .collection('admins')
-          .doc(admin.adminId)
+          .collection('users')
+          .doc(admin.userId)
           .set(admin.toJson())
           .whenComplete(() async {
             emit(const AuthSuccess());
       });
-      getIt.get<GetStorage>().write('id', admin.adminId);
+      getIt.get<GetStorage>().write('id', admin.userId);
       saveToken();
     } catch (e) {
          emit(AuthFailed(errMsg: e.toString()));
     }
   }
-  Future signup({required Admin admin,required String password})async{
+  Future signup({required UserModel admin,required String password})async{
     emit(const AuthLoading());
     try {
        await auth.createUserWithEmailAndPassword(
         email: admin.email,
         password: password,
       ).then((value){
-        admin.adminId = value.user!.uid;
+        admin.userId = value.user!.uid;
         uploadAdminData(admin);
       });
 
@@ -78,7 +78,6 @@ class AuthCubit extends Cubit<AuthState> {
   }
   Future facebookSingIn()async{
     emit(const AuthLoading());
-
     try{
       final LoginResult loginResult = await faceBookAuth.login();
 
@@ -86,15 +85,16 @@ class AuthCubit extends Cubit<AuthState> {
 
       await auth.signInWithCredential(facebookAuthCredential).then((value){
 
-        Admin admin= Admin(
+        UserModel admin= UserModel(
           username: value.user!.displayName.toString(),
           email: value.user!.email.toString(),
-          adminId: value.user!.uid,
+          userId: value.user!.uid,
           phone: value.user!.phoneNumber.toString(),
           address: '',
-          image: value.user!.photoURL.toString()
+          image: value.user!.photoURL.toString(),
+            favorites: []
         );
-      uploadAdminData(admin);
+        getIt.get<GetStorage>().read('id') == null ? uploadAdminData(admin):null;
       });
 
 

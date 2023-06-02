@@ -6,10 +6,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:m_store/config/app_colors.dart';
 import 'package:m_store/config/text_styles.dart';
-import 'package:m_store/featured/auth/presentation/view_models/admin_cubit/admin_cubit.dart';
+import 'package:m_store/featured/auth/presentation/view_models/admin_cubit/user_cubit.dart';
 import 'package:m_store/featured/auth/presentation/views/widgets/upload_image.dart';
 import 'package:m_store/services/locator.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../config/app_routes.dart';
+import '../view_models/auth_cubit/auth_cubit.dart';
 import 'widgets/custom_list_tile.dart';
 import 'widgets/loading_profile.dart';
 import 'widgets/settings_list_tile.dart';
@@ -27,13 +29,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    context.read<AdminCubit>().fetchAdminData(id:getIt.get<GetStorage>().read('id'),showLoading: true );
+    context.read<UserCubit>().fetchAdminData(id:getIt.get<GetStorage>().read('id'),showLoading: true );
 
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AdminCubit, AdminState>(
+    return BlocConsumer<UserCubit, UserState>(
    listener: (context, state){
 
    },
@@ -122,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       subtitle: Text('Setif,raselma,12'),
                       trailing: Icons.edit_location_alt_outlined,
                       onTap: ()async{
-                       await context.read<AdminCubit>().getCurrentLocation();
+                       await context.read<UserCubit>().getCurrentLocation();
 
                       },
                       leading: Ionicons.location_outline,
@@ -155,6 +157,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SettingListTile(
                       title: 'logout',
                       trailing:IconButton(onPressed: (){
+                        context.read<AuthCubit>().logoutSession();
+                        Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (route) => false);
 
                       }, icon: const Icon(Ionicons.log_out_outline),
                       ),
@@ -185,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       _image = File(pickedFile!.path);
       Navigator.pop(context);
-       context.read<AdminCubit>().uploadImage(_image);
+       context.read<UserCubit>().uploadImage(_image);
 
     });
 
@@ -197,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       _image = File(pickedFile!.path);
       Navigator.pop(context);
-       context.read<AdminCubit>().uploadImage(_image);
+       context.read<UserCubit>().uploadImage(_image);
 
     });
 

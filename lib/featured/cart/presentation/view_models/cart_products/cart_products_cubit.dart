@@ -11,24 +11,10 @@ part 'cart_products_state.dart';
 class CartProductsCubit extends Cubit<CartProductsState> {
   CartProductsCubit() : super(CartProductsInitial());
 
-  getProducts()async{
-    emit( CartProductsLoading());
-    try{
+  Stream<DatabaseEvent> getCartProducts(){
       DatabaseReference ref =  FirebaseDatabase.instance.ref('carts');
-      var snapshot =await ref.child(getIt.get<GetStorage>().read('id')).get();
-      if(snapshot.exists){
-      List<ProductCart>  products = [];
-        for(var data in snapshot.children) {
-          products.add(ProductCart.fromJson(data.value as Map<dynamic,dynamic>));
-        }
-        emit(CartProductSuccess(products: products));
-
-      }else{
-        emit( CartProductSuccess(products: const []));
-      }
-    }catch(e){
-      emit(CartProductsFailed());
-    }
+      var snapshot = ref.child(getIt.get<GetStorage>().read('id')).onValue;
+      return snapshot;
 
   }
 }

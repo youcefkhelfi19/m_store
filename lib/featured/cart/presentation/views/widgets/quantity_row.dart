@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m_store/featured/cart/presentation/view_models/cart_cubit.dart';
 
 import '../../../../../config/app_colors.dart';
 
-class QuantityRow extends StatelessWidget {
-  const QuantityRow({Key? key}) : super(key: key);
+class QuantityRow extends StatefulWidget {
+  const QuantityRow({Key? key, required this.id}) : super(key: key);
+  final String id ;
+  @override
+  State<QuantityRow> createState() => _QuantityRowState();
+}
+
+class _QuantityRowState extends State<QuantityRow> {
 
   @override
+  void initState() {
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 70,
-      child: Row(
-        children: const [
-          Icon(Icons.remove_circle,color: AppColors.mainColor,),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Text('1'),
-          ),
-          Icon(Icons.add_circle,color: AppColors.mainColor,)
-        ],
-      ),
-    );
+    return InkWell(
+
+        onTap: (){
+
+            context.read<CartCubit>().deleteCartProduct(widget.id);
+
+
+        },
+        child: const Icon(Icons.remove_circle,color: AppColors.mainColor,));
   }
 }

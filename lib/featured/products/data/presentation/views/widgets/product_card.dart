@@ -1,10 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:m_store/config/app_colors.dart';
 import 'package:m_store/config/app_routes.dart';
 
+import '../../../../../../services/locator.dart';
 import '../../../models/product_model.dart';
+import 'fav_btn.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -70,21 +74,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Positioned(
-                  right: 5,
-                  top: 5,
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration:  BoxDecoration(
-                        color: AppColors.mainColor.withOpacity(0.2),
-                        shape: BoxShape.circle
-                    ),
-                    child: InkWell(
-                        onTap: (){
-
-                        }, child: const Icon(Ionicons.heart_outline,color: Colors.red,)),
-                  ),
-                ),
+                FaveBtn(id: product.productId.toString(),),
                 Positioned(
                   right: 0,
                   bottom: 0,
@@ -115,7 +105,7 @@ class ProductCard extends StatelessWidget {
                           topLeft: Radius.circular(10)
                       )
                   ),
-                  child: Text('-${product.discount}%',style: const TextStyle(color: Colors.white),),
+                  child: Text('-${product.discount}%',style: const TextStyle(color: Colors.white,fontSize: 14),),
                 )),
                 Positioned(
                     left: 0,
@@ -128,7 +118,7 @@ class ProductCard extends StatelessWidget {
                         color: Colors.red,
 
                       ),
-                      child: Text('${(product.price)-(product.price*(product.discount/100))}DA',style: const TextStyle(color: Colors.white),),
+                      child: Text('${(product.price)-(product.price*(product.discount/100))}DA',style: const TextStyle(color: Colors.white,fontSize: 16),),
                     ))
               ],
             )
@@ -137,3 +127,4 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
+
